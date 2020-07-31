@@ -11,6 +11,7 @@ import StreamList from "./streams/StreamList";
 import Header from "./Header";
 
 const App = () => {
+  console.log(this)
   return (
     <div className="ui container">
       <BrowserRouter>
