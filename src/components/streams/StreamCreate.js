@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { createStream } from '../../actions'
 
 class StreamCreate extends React.Component {
+  
   //   renderInput(formProps) {
   //     console.log(formProps); ?__________________________________
   //     return (
@@ -13,7 +14,7 @@ class StreamCreate extends React.Component {
   //       ></input>
   //     );
   //   }
-  renderError(formProps){
+  renderError = (formProps) =>{
     if( formProps.meta.touched && formProps.meta.error) {
         return (
             <div className="ui error message">
@@ -24,7 +25,6 @@ class StreamCreate extends React.Component {
   }
   renderInput = (formProps) => {
       const className = `field ${formProps.meta.error && formProps.meta.touched ? 'error' : ''}`
-    console.log(formProps);
     return (
 
       <div className={className}>
