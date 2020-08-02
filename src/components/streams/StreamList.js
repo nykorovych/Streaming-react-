@@ -1,16 +1,30 @@
 import React from "react";
 import { connect } from "react-redux";
 import { fetchStreams } from "../../actions/";
+import { Link } from "react-router-dom";
 
 class StreamList extends React.Component {
   componentDidMount() {
     this.props.fetchStreams();
   }
-
+  renderAdmin(stream) {
+    if (stream.userId === this.props.currentUser) {
+      return (
+        <div className="right floated content">
+          <Link
+            to={`/streams/edit/${stream.id}`}
+            className="ui button primary"
+          >EDIT</Link>
+          <button className="ui button negative">DELETE</button>
+        </div>
+      );
+    }
+  }
   renderList = () => {
     return this.props.streams.map((stream) => {
       return (
-        <div className="item">
+        <div className="item" key={stream.id}>
+          {this.renderAdmin(stream)}
           <i className="large middle aligned icon camera"></i>
           <div className="content">
             {stream.title}
@@ -19,18 +33,34 @@ class StreamList extends React.Component {
         </div>
       );
     });
+  };
+  renderCreate(isSignedIn) {
+    if (isSignedIn) {
+      return (
+        <div style={{ textAlign: "right" }}>
+          <Link to="/streams/new" className="ui button primary">
+            CREATE STREAM
+          </Link>
+        </div>
+      );
+    }
   }
   render() {
     return (
       <div>
         <h2>STREAM</h2>
         <div className="ui celled list">{this.renderList()}</div>
+        {this.renderCreate(this.props.isSignedIn)}
       </div>
     );
   }
 }
 const mstp = (state) => {
-  return { streams: Object.values(state.stream) };
+  return {
+    streams: Object.values(state.stream),
+    currentUser: state.auth.userId,
+    isSignedIn: state.auth.isSignedIn,
+  };
 };
 
 export default connect(mstp, { fetchStreams })(StreamList);
