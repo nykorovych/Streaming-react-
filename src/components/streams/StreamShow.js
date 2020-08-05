@@ -10,7 +10,7 @@ import { fetchStream }from '../../actions'
      
     render() {
         if(!this.props.stream) {
-            return <div>LOading</div>
+            return <div>loading</div>
         }
         return (
             <div>
