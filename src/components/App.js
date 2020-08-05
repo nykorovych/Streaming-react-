@@ -1,6 +1,6 @@
 import React from "react";
-import { BrowserRouter, Route, Router } from "react-router-dom";
-import history from '../history'
+import { Route, Router, Switch } from "react-router-dom";
+import history from "../history";
 
 // 124060738502-2ee21m1mq05s4tp1hpr4bul0h756805s.apps.googleusercontent.com
 import StreamCreate from "./streams/StreamCreate";
@@ -16,11 +16,13 @@ const App = () => {
       <Router history={history}>
         <div>
           <Header></Header>
-          <Route path="/" exact component={StreamList} />
-          <Route path="/streams/new" exact component={StreamCreate} />
-          <Route path="/streams/edit/:id" exact component={StreamEdit} />
-          <Route path="/streams/delete/:id" exact component={StreamDelete} />
-          <Route path="/streams/show" exact component={StreamShow} />
+          <Switch>
+            <Route path="/" exact component={StreamList} />
+            <Route path="/streams/new" exact component={StreamCreate} />
+            <Route path="/streams/edit/:id" exact component={StreamEdit} />
+            <Route path="/streams/delete/:id" exact component={StreamDelete} />
+            <Route path="/streams/:id" exact component={StreamShow} />
+          </Switch>
         </div>
       </Router>
     </div>
